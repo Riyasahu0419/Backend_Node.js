@@ -1,6 +1,6 @@
 const crypto = require('crypto');
 
-function calculator(operation,n1,n2,length){
+function calculator(operation,n1,n2){
     let result;
     switch(operation){
         case 'add':
@@ -32,11 +32,11 @@ function calculator(operation,n1,n2,length){
             break;
 
         case 'random':
-            if(!length){
+            if(!n1){
                 console.log('provide length for random number')
             }else{
 
-                result=crypto.randomBytes(length).toString('binary');
+                result=crypto.randomBytes(n1).toString('binary');
             }
             break;
 
@@ -48,10 +48,14 @@ function calculator(operation,n1,n2,length){
 }
 
 
-const args = process.argv.slice(2); 
-const operation = args[0];
-const n1 = parseFloat(args[1]);
-const n2 = parseFloat(args[2]);
-const randomLength = parseInt(args[3], 10);
+// const args = process.argv.slice(2); 
+// const operation = args[0];
+// const n1 = parseFloat(args[1]);
+// const n2 = parseFloat(args[2]);
+// const randomLength = parseInt(args[3], 10);
 
-calculator(operation,n1,n2,randomLength);
+const operation= process.argv[2];
+const n1= Number(process.argv[3])
+const n2=Number(process.argv[4])
+
+calculator(operation,n1,n2);
