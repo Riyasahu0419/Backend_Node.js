@@ -57,5 +57,6 @@ function calculator(operation,n1,n2){
 const operation= process.argv[2];
 const n1= Number(process.argv[3])
 const n2=Number(process.argv[4])
+console.log(process.argv)
 
 calculator(operation,n1,n2);
