@@ -1,0 +1,36 @@
+
+1.What is a NoSQL Database, and explain the types of NoSQL database?
+Ans:-
+
+2.What is the difference between SQL and NoSQL databases?
+Ans:-
+
+3.How to choose between MongoDB and MySQL based on your requirements?
+Ans:-
+
+4.What are collections and documents in a MongoDB database?
+Ans:-
+
+5.What is BSON? What is the difference between BSON and JSON?
+Ans:-
+
+6.What are MongoDB Compass and MongoDB Shell used for?
+Ans:-
+
+7.How to create collections in MongoDB?
+Ans:-
+
+8.What is the difference between insertMany and insertOne?
+Ans:-
+
+9.What is the difference between deleteOne and deleteMany?
+Ans:-
+
+10.How to read data in MongoDB? What is the difference between find and findOne?
+Ans:-
+
+11.What is $set in MongoDB?
+Ans:-
+
+12.How to filter data using MongoDB?
+Ans:-
