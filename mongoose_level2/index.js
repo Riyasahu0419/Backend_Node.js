@@ -1,6 +1,6 @@
 const express=require("express")
 const connection=require("./config/db")
-const GlassModel=require("./models/glass.model")
+const GlassModel=require("./models/glassmodel")
 
 const server=express();
 const PORT=3080;
