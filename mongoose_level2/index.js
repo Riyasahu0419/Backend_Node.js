@@ -1,75 +1,95 @@
-const express=require("express")
-const connection=require("./config/db")
-const GlassModel=require("./models/glassmodel")
+// const express = require("express")
+// const server=express()
+// const connection=require('./model/movieModel')
+// const database=require('./config/db')
+// server.use(express.json())
 
-const server=express();
-const PORT=3080;
+
+// server.post("/",async(req,res)=>{
+//         const {title,hero,year,rating}=req.body
+//         try {
+//              const data= new connection({
+//                 title,hero,year,rating
+//              })
+//              await data.save()
+//              res.status(200).send("success")
+                
+//         } catch (error) {
+//             res.status(400).send("data not found")    
+//         }
+// })
+
+
+
+
+// server.listen(7070,async()=>{
+//         try {
+//             await database
+//             console.log("server connected to database")
+//         } catch (error) {
+//             console.log(`error not connected to the database ${error}`)
+//         }
+// })
+
+
+
+const express = require("express");
+const server = express();
+const Movie = require('./model/movieModel'); // Renaming for clarity
+const database = require('./config/db');
 server.use(express.json());
 
 
-server.post("/create",async(req,res)=>{
-    
-    const {color,material,size,brand}=req.body;
-    try {
-        const glass=new GlassModel({
-            color,
-            material,
-            size,
-            brand
-        })
-        await glass.save()
-        res.status(201).send("glass created successfully")
-    } catch (error) {
-        res.status(404).send("error creating glaas")
-    }
-})
-
-
 server.get("/",async(req,res)=>{
-    try {
-        const glaas= await GlassModel.find()
-        res.send(glaas)
-        res.status(201).json("glass finding successfully",glaas)
-    } catch (error) {
-        
-        res.status(404).send(`error not finding glaas ${error}`)
-    }
+        const {title}=req.query
+        try {
+                const newtitle={}
+                if(title){
+                        newtitle.title=title
+                }
+             const Alldata= await Movie.find(newtitle)
+             res.status(200).send(Alldata)  
+        } catch (error) {
+                
+               res.status(401).send("Failed to save movie data");
+        }
 })
 
+// server.get("/",async(req,res)=>{
+//         try {
+//              const data= await Movie.findOne()
+//              res.status(200).send(data) 
+              
+//         } catch (error) {
+                
+//                 res.status(401).send("Failed to save movie data",error);
+//         }
+// })
 
-server.patch("/update/:id",async(req,res)=>{
-    const {id}=req.params;
+
+server.post("/", async (req, res) => {
+    const { title, hero, year, rating } = req.body;
     try {
-        const glass=await GlassModel.findByIDAndUpdate({_id:id},req.body)
-        res.status(201).json({"msg":"glass updated successfully"},glass)
+        const movie = new Movie({
+            title,
+            hero,
+            year,
+            rating
+        });
+        await movie.save();
+        res.status(201).send("Movie data saved successfully");
     } catch (error) {
-        res.status(404).send(`error not updated glaas ${error}`)
-    }
-})
-
-server.delete("/delete/:id",async(req,res)=>{
-    const {id}=req.params;
-    try {
-        const glass=await GlassModel.findByIDAndDelete({_id:id},req.body)
-        res.status(201).json({"msg":"glass deleting successfully"},glass)
-    } catch (error) {
-        res.status(404).send(`error not deleting glaas ${error}`)
-    }
-})
-
-
-
-
-server.listen(PORT,async()=>{
-    
-    try {
-       await connection;
-        console.log(`server is connected to server ${PORT} and onnected to the database`)
-        
-    } catch (error) {
-        
-        console.log(`error not connected to the database ${error}`)
+        console.error("Error saving movie data:", error);
+        res.status(400).send("Failed to save movie data");
     }
 });
 
+server.listen(7070, async () => {
+    try {
+        await database;
+        console.log("Server connected to database");
+    } catch (error) {
+        console.error(`Failed to connect to the database: ${error}`);
+    }
+});
 
